@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e9eff3;
+      margin: 0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .form-group-inline {
+      display: flex;
+      gap: 20px;
+    }
+    .form-group-inline label {
+      font-weight: normal;
+    }
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #2d89ef;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1b5fbf;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Student Registration Form</h2>
+    <form id="registrationForm" method="POST" action="/submit">
+      <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" name="fullname" id="fullname" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Create Password</label>
+        <input type="password" name="password" id="password" required minlength="6" />
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" name="dob" id="dob" required />
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" /> Male</label>
+          <label><input type="radio" name="gender" value="Female" /> Female</label>
+          <label><input type="radio" name="gender" value="Other" /> Other</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" id="phone" pattern="[0-9]{10}" required />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea name="address" id="address" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="course">Select Course</label>
+        <select name="course" id="course" required>
+          <option value="">-- Select Course --</option>
+          <option value="BCA">BCA</option>
+          <option value="BSc IT">BSc IT</option>
+          <option value="BBA">BBA</option>
+          <option value="BA">BA</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Hobbies</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="hobbies" value="Reading" /> Reading</label>
+          <label><input type="checkbox" name="hobbies" value="Sports" /> Sports</label>
+          <label><input type="checkbox" name="hobbies" value="Music" /> Music</label>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Submit Registration</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Client-side validation script
+    document.getElementById("registrationForm").addEventListener("submit", function (e) {
+      const phone = document.getElementById("phone").value;
+      if (!/^[0-9]{10}$/.test(phone)) {
+        alert("Phone number must be exactly 10 digits.");
+        e.preventDefault();
+      }
+
+      const password = document.getElementById("password").value;
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
+        e.preventDefault();
+      }
+
+      const gender = document.querySelector('input[name="gender"]:checked');
+      if (!gender) {
+        alert("Please select your gender.");
+        e.preventDefault();
+      }
+
+      const course = document.getElementById("course").value;
+      if (course === "") {
+        alert("Please select a course.");
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
